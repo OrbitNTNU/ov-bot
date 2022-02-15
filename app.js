@@ -84,7 +84,7 @@ app.command('/ov-status', async ({ ack, say }) => {
   setTimeout(
     async () =>
       ovStatus
-        ? await say('ÅPENT :high-hk:')
+        ? await say('ÅPENT :high-hk: :catrave:')
         : await say('Stengt :disagreeing_astrid:'),
     2000
   );
