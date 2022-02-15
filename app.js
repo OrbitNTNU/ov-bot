@@ -104,5 +104,5 @@ app.command('/help', async ({ ack, say }) => {
 (async () => {
   await app.start(process.env.PORT || 3000);
 
-  console.log('⚡️ OV BOT is running!');
+  console.log('⚡️ OV-BOT is running!');
 })();
