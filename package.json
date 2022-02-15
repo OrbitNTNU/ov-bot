@@ -17,6 +17,8 @@
   },
   "homepage": "https://github.com/OrbitNTNU/ov-bot#readme",
   "dependencies": {
-    "@slack/bolt": "^3.9.0"
+    "@slack/bolt": "^3.9.0",
+    "axios": "^0.26.0",
+    "dotenv": "^16.0.0"
   }
 }
