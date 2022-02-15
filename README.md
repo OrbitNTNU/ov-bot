@@ -4,9 +4,7 @@ Slackbot used to determine if Omega Verksted is open.
 
 ## Project Status
 
-Under Development
-
-<!-- Live @ Heroku 🚀 -->
+Live @ Heroku 🚀
 
 ## Development
 
