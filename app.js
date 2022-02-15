@@ -9,11 +9,14 @@ const app = new App({
   appToken: process.env.APP_TOKEN,
 });
 
+const omegaURL = 'https://omegav.no/';
+const apiURL = 'https://api.jsonbin.io/b/620c15c64bf50f4b2dfcfa7c';
+
 const getOvStatus = async () => {
   let status = false;
 
   await axios
-    .get('https://omegav.no/')
+    .get(omegaURL)
     .then((response) => {
       status = response.data.includes('Omega Verksted er åpent!')
         ? true
@@ -26,16 +29,80 @@ const getOvStatus = async () => {
   return status;
 };
 
+const getVisits = async () => {
+  let visits = 0;
+
+  await axios
+    .get(apiURL)
+    .then((response) => {
+      visits = Number(response.data.visits);
+    })
+    .catch((error) => console.log(error));
+
+  return visits;
+};
+
+const addVisit = async () => {
+  const currentVisits = await getVisits();
+
+  await axios
+    .put(apiURL, {
+      visits: 100,
+    })
+    .then((response) => console.log(response))
+    .catch((error) => console.log(error));
+};
+
 app.message(async ({ message, say }) => {
   if (message.text === 'OV?') {
     const ovStatus = getOvStatus();
 
     ovStatus ? await say('OV!') : await say(':disagreeing_astrid:');
+
+    // await addVisit();
   }
+});
+
+app.message(async ({ message, say }) => {
+  if (message.text === 'OV#') {
+    const visits = await getVisits();
+
+    await say('TODO: Implement this function :oldschool_sad: ');
+    // `Times the memebers of Orbit has asked to go to OV: ${visits} :magnus_pet:`
+  }
+});
+
+app.command('/ov-status', async ({ ack, say }) => {
+  await ack();
+
+  const ovStatus = getOvStatus();
+
+  await say('OV er...');
+
+  setTimeout(async () => await say('...'), 1000);
+
+  setTimeout(
+    async () =>
+      ovStatus
+        ? await say('ÅPENT :high-hk:')
+        : await say('Stengt :disagreeing_astrid:'),
+    2000
+  );
+});
+
+app.command('/help', async ({ ack, say }) => {
+  await ack();
+
+  await say(`
+    Hello you stupid fuck, here are some help! :bossgirl_mari:
+    - OV? - Answers you OV! if OV is open, if not you would know that it isn't.
+    - OV# - Gives you the number of times you and the memebers of Orbit has asked to go to OV.
+    - /ov-status - Tells you the state of OV.
+    - /help - I hope you know what this does :disagreeing_astrid:`);
 });
 
 (async () => {
   await app.start(process.env.PORT || 3000);
 
-  console.log('⚡️ Bolt app is running!');
+  console.log('⚡️ OV BOT is running!');
 })();
