@@ -2,6 +2,9 @@ const { App } = require('@slack/bolt');
 const axios = require('axios');
 require('dotenv').config();
 
+const { getOvStatus } = require('./api/getOvStatus');
+const { getVisits } = require('./api/getVisits');
+
 const app = new App({
   signingSecret: process.env.SLACK_SIGNING_SECRET,
   token: process.env.SLACK_BOT_TOKEN,
@@ -9,57 +12,11 @@ const app = new App({
   appToken: process.env.APP_TOKEN,
 });
 
-const omegaURL = 'https://omegav.no/';
-const apiURL = 'https://api.jsonbin.io/b/620c15c64bf50f4b2dfcfa7c';
-
-const getOvStatus = async () => {
-  let status = false;
-
-  await axios
-    .get(omegaURL)
-    .then((response) => {
-      status = response.data.includes('Omega Verksted er åpent!')
-        ? true
-        : false;
-    })
-    .catch((error) => {
-      console.log(error);
-    });
-
-  return status;
-};
-
-const getVisits = async () => {
-  let visits = 0;
-
-  await axios
-    .get(apiURL)
-    .then((response) => {
-      visits = Number(response.data.visits);
-    })
-    .catch((error) => console.log(error));
-
-  return visits;
-};
-
-const addVisit = async () => {
-  const currentVisits = await getVisits();
-
-  await axios
-    .put(apiURL, {
-      visits: 100,
-    })
-    .then((response) => console.log(response))
-    .catch((error) => console.log(error));
-};
-
 app.message(async ({ message, say }) => {
   if (message.text === 'OV?') {
     const ovStatus = getOvStatus();
 
     ovStatus ? await say('OV!') : await say(':disagreeing_astrid:');
-
-    // await addVisit();
   }
 });
 
@@ -68,7 +25,6 @@ app.message(async ({ message, say }) => {
     const visits = await getVisits();
 
     await say('TODO: Implement this function :oldschool_sad: ');
-    // `Times the memebers of Orbit has asked to go to OV: ${visits} :magnus_pet:`
   }
 });
 
