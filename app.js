@@ -57,7 +57,7 @@ app.message(async ({ message, say }) => {
   if (message.text === 'OV?') {
     const ovStatus = getOvStatus();
 
-    ovStatus ? await say('OV! <!here>') : await say(':disagreeing_astrid:');
+    ovStatus ? await say('OV!') : await say(':disagreeing_astrid:');
 
     // await addVisit();
   }
@@ -87,6 +87,12 @@ app.command('/ov-status', async ({ ack, say }) => {
         : await say('Stengt :disagreeing_astrid:'),
     2000
   );
+});
+
+app.command('/start-train', async ({ ack, say }) => {
+  await ack();
+
+  await say("<!channel>, OV-toget has started! :ov: :steam_locomotive:")
 });
 
 app.command('/help', async ({ ack, say }) => {
