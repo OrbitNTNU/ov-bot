@@ -103,6 +103,7 @@ app.command('/help', async ({ ack, say }) => {
     - OV? - Answers you OV! if OV is open, if not you would know that it isn't.
     - OV# - Gives you the number of times you and the memebers of Orbit has asked to go to OV.
     - /ov-status - Tells you the state of OV.
+    - /start-train - Starts OV-toget! :ov:
     - /help - I hope you know what this does :disagreeing_astrid:`);
 });
 
