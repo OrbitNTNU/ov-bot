@@ -57,7 +57,7 @@ app.message(async ({ message, say }) => {
   if (message.text === 'OV?') {
     const ovStatus = getOvStatus();
 
-    ovStatus ? await say('OV! <!channel>') : await say(':disagreeing_astrid:');
+    ovStatus ? await say('OV! <!here>') : await say(':disagreeing_astrid:');
 
     // await addVisit();
   }
