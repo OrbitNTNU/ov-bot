@@ -57,7 +57,7 @@ app.message(async ({ message, say }) => {
   if (message.text === 'OV?') {
     const ovStatus = getOvStatus();
 
-    ovStatus ? await say('OV! <!channel>') : await say(':disagreeing_astrid:');
+    ovStatus ? await say('OV!') : await say(':disagreeing_astrid:');
 
     // await addVisit();
   }
@@ -89,6 +89,12 @@ app.command('/ov-status', async ({ ack, say }) => {
   );
 });
 
+app.command('/start-train', async ({ ack, say }) => {
+  await ack();
+
+  await say("<!channel>, OV-toget has started! :ov: :steam_locomotive:")
+});
+
 app.command('/help', async ({ ack, say }) => {
   await ack();
 
@@ -97,6 +103,7 @@ app.command('/help', async ({ ack, say }) => {
     - OV? - Answers you OV! if OV is open, if not you would know that it isn't.
     - OV# - Gives you the number of times you and the memebers of Orbit has asked to go to OV.
     - /ov-status - Tells you the state of OV.
+    - /start-train - Starts OV-toget! :ov:
     - /help - I hope you know what this does :disagreeing_astrid:`);
 });
 
