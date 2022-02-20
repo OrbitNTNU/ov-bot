@@ -9,17 +9,28 @@ const app = new App({
   appToken: process.env.APP_TOKEN,
 });
 
-const omegaURL = 'https://omegav.no/';
-const apiURL = 'https://api.jsonbin.io/b/620c15c64bf50f4b2dfcfa7c';
+const omegaURL = process.env.OMEGA_URL;
+const apiURL = process.env.API_URL;
+const token = process.env.X_MASTER_KEY;
+
+var axiosHeaders = {
+  headers: {
+    'Content-Type': 'application/json',
+    'X-Master-Key': token,
+  },
+};
 
 const addVisit = async () => {
   const currentVisits = await getVisits();
 
   await axios
-    .put(apiURL, {
-      visits: 100,
-    })
-    .then((response) => console.log(response))
+    .put(
+      apiURL,
+      {
+        counter: currentVisits + 1,
+      },
+      { axiosHeaders }
+    )
     .catch((error) => console.log(error));
 };
 
@@ -44,9 +55,9 @@ const getVisits = async () => {
   let visits = 0;
 
   await axios
-    .get(apiURL)
+    .get(apiURL + '/latest')
     .then((response) => {
-      visits = Number(response.data.visits);
+      visits = response.data.record.counter;
     })
     .catch((error) => console.log(error));
 
@@ -59,7 +70,7 @@ app.message(async ({ message, say }) => {
 
     ovStatus ? await say('OV!') : await say(':disagreeing_astrid:');
 
-    // await addVisit();
+    await addVisit();
   }
 });
 
@@ -67,7 +78,7 @@ app.message(async ({ message, say }) => {
   if (message.text === 'OV#') {
     const visits = await getVisits();
 
-    await say('TODO: Implement this function :oldschool_sad: ');
+    await say(`OV-COUNTER: ${visits}`);
   }
 });
 
@@ -92,7 +103,7 @@ app.command('/ov-status', async ({ ack, say }) => {
 app.command('/start-train', async ({ ack, say }) => {
   await ack();
 
-  await say("<!channel>, OV-toget has started! :ov: :steam_locomotive:")
+  await say('<!channel>, OV-toget has started! :ov: :steam_locomotive:');
 });
 
 app.command('/help', async ({ ack, say }) => {
