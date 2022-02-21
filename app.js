@@ -66,7 +66,7 @@ const getVisits = async () => {
 
 app.message(async ({ message, say }) => {
   if (message.text === 'OV?') {
-    const ovStatus = getOvStatus();
+    const ovStatus = await getOvStatus();
 
     ovStatus ? await say('OV!') : await say(':disagreeing_astrid:');
 
