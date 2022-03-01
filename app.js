@@ -110,12 +110,12 @@ app.command('/help', async ({ ack, say }) => {
   await ack();
 
   await say(`
-    Hello you stupid fuck, here are some help! :bossgirl_mari:
+    Hello :wave:, available commands:
     - OV? - Answers you OV! if OV is open, if not you would know that it isn't.
     - OV# - Gives you the number of times you and the memebers of Orbit has asked to go to OV.
     - /ov-status - Tells you the state of OV.
     - /start-train - Starts OV-toget! :ov:
-    - /help - I hope you know what this does :disagreeing_astrid:`);
+    - /help - Shows available commands :muscle:`);
 });
 
 (async () => {
