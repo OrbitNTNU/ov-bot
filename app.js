@@ -78,7 +78,11 @@ app.message(async ({ message, say }) => {
   if (message.text === 'OV#') {
     const visits = await getVisits();
 
-    await say(`OV-COUNTER: ${visits}`);
+    if (visits === 69) {
+      await say(`OV-COUNTER: ${visits} :eyes:`);
+    } else {
+      await say(`OV-COUNTER: ${visits}`);
+    }
   }
 });
 
