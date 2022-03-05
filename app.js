@@ -95,13 +95,12 @@ app.command('/ov-status', async ({ ack, say }) => {
 
   setTimeout(async () => await say('...'), 1000);
 
-  setTimeout(
-    async () =>
-      ovStatus
-        ? await say('ÅPENT :high-hk: :catrave:')
-        : await say('Stengt :disagreeing_astrid:'),
-    2000
-  );
+  setTimeout(async () => {
+    ovStatus
+      ? await say('ÅPENT :high-hk: :catrave:')
+      : await say('Stengt :disagreeing_astrid:'),
+      2000;
+  });
 });
 
 app.command('/start-train', async ({ ack, say }) => {
