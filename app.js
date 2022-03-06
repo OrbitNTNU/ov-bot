@@ -85,7 +85,7 @@ app.message(async ({ message, say }) => {
 app.command('/ov-status', async ({ ack, say }) => {
   await ack();
 
-  const ovStatus = getOvStatus();
+  const ovStatus = await getOvStatus();
 
   await say('OV er...');
 
