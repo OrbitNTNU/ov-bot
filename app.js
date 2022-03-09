@@ -12,6 +12,7 @@ const app = new App({
 const omegaURL = process.env.OMEGA_URL;
 const apiURL = process.env.API_URL;
 const token = process.env.X_MASTER_KEY;
+const chooChooURL = process.env.CHOO_CHOO_URL;
 
 var axiosHeaders = {
   headers: {
@@ -104,6 +105,14 @@ app.command('/start-train', async ({ ack, say }) => {
   await ack();
 
   await say('<!channel>, OV-toget has started! :ov: :steam_locomotive:');
+
+  setTimeout(
+    async () =>
+      axios.get(chooChooURL).catch((error) => {
+        console.log(error);
+      }),
+    180000
+  );
 });
 
 app.command('/help', async ({ ack, say }) => {
