@@ -75,7 +75,7 @@ app.message(async ({ message, say }) => {
   }
 });
 
-app.message(async ({ message, say }) => {
+app.message(async ({ message, respond }) => {
   if (message.text === 'OV#') {
     const visits = await getVisits();
 
