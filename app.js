@@ -79,24 +79,24 @@ app.message(async ({ message, say }) => {
   if (message.text === 'OV#') {
     const visits = await getVisits();
 
-    await say(`OV-COUNTER: ${visits}`);
+    await respond(`OV-COUNTER: ${visits}`);
   }
 });
 
-app.command('/ov-status', async ({ ack, say }) => {
+app.command('/ov-status', async ({ ack, respond }) => {
   await ack();
 
   const ovStatus = await getOvStatus();
 
-  await say('OV er...');
+  await respond('OV er...');
 
-  setTimeout(async () => await say('...'), 1000);
+  setTimeout(async () => await respond('...'), 1000);
 
   setTimeout(
     async () =>
       ovStatus
-        ? await say('ÅPENT :high-hk: :catrave:')
-        : await say('Stengt :disagreeing_astrid:'),
+        ? await respond('ÅPENT :high-hk: :catrave:')
+        : await respond('Stengt :disagreeing_astrid:'),
     2000
   );
 });
