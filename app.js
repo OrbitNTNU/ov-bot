@@ -75,11 +75,11 @@ app.message(async ({ message, say }) => {
   }
 });
 
-app.message(async ({ message, respond }) => {
+app.message(async ({ message, say }) => {
   if (message.text === 'OV#') {
     const visits = await getVisits();
 
-    await respond(`OV-COUNTER: ${visits}`);
+    await say(`OV-COUNTER: ${visits}`);
   }
 });
 
