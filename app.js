@@ -111,7 +111,7 @@ app.command('/start-train', async ({ ack, say }) => {
       axios.get(chooChooURL).catch((error) => {
         console.log(error);
       }),
-    900000
+    90000
   );
 });
 
