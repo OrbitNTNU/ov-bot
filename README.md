@@ -1,5 +1,7 @@
 # OV BOT :tobbis_rock_anthem:
 
+[![CodeQL](https://github.com/OrbitNTNU/ov-bot/actions/workflows/codeql.yml/badge.svg)](https://github.com/OrbitNTNU/ov-bot/actions/workflows/codeql.yml)
+
 Slackbot used to determine if Omega Verksted is open.
 
 ## Project Status
