@@ -13,6 +13,8 @@ const omegaURL = process.env.OMEGA_URL;
 const apiURL = process.env.API_URL;
 const token = process.env.X_MASTER_KEY;
 const chooChooURL = process.env.CHOO_CHOO_URL;
+const deployHookUrl = process.env.DEPLOY_HOOK_URL;
+const delpoyChannelId = process.env.DEPLOY_CHANNEL_ID;
 
 var axiosHeaders = {
   headers: {
@@ -115,6 +117,22 @@ app.command('/start-train', async ({ ack, say }) => {
   );
 });
 
+app.command('/deploy-website', async ({ ack, say, command }) => {
+  await ack();
+
+  if (command.channel_id === delpoyChannelId) {
+    await axios.post(deployHookUrl).catch(async (error) => {
+      console.log(error);
+      await say('Web deploy failed. Check the logs for more info :(');
+      return false;
+    });
+
+    await say('A new website deploy has started! :muscle: :gear:');
+  } else {
+    await say('You cannot deploy from this channel! :angry-wilhelm:');
+  }
+});
+
 app.command('/help', async ({ ack, say }) => {
   await ack();
 
@@ -124,6 +142,7 @@ app.command('/help', async ({ ack, say }) => {
     - OV# - Gives you the number of times you and the memebers of Orbit has asked to go to OV.
     - /ov-status - Tells you the state of OV.
     - /start-train - Starts OV-toget! :ov:
+    - /deploy-website - Yes, the OV-Bot is used to deploy our website. :rocket:
     - /help - Shows available commands :muscle:`);
 });
 
