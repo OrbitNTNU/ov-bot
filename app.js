@@ -133,10 +133,10 @@ app.command('/deploy-website', async ({ ack, say, command }) => {
   }
 });
 
-app.command('/help', async ({ ack, say }) => {
+app.command('/help', async ({ ack, respond }) => {
   await ack();
 
-  await say(`
+  await respond(`
     Hello :wave:, available commands:
     - OV? - Answers you OV! if OV is open, if not you would know that it isn't.
     - OV# - Gives you the number of times you and the memebers of Orbit has asked to go to OV.
