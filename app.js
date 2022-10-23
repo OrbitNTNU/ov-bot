@@ -9,6 +9,49 @@ const app = new App({
   appToken: process.env.APP_TOKEN,
 });
 
+const events = {
+  halloween: new Date().getMonth() === 9 ? true : false,
+  christmas: new Date().getMonth() === 11 ? true : false,
+};
+
+const quotes = {
+  halloween: [
+    '“It’s Halloween, everyone’s entitled to one good scare.“',
+    '“I’m a mouse, duh”',
+    '“Oh look, another glorious morning. Makes me sick.”',
+    '“You can’t kill the boogeyman!”',
+    '“I’ll stop wearing black when they make a darker colour”',
+    '“I’m a ghost with the most, babe.”',
+    '“When there is no room left in hell, the dead will walk the earth.”',
+    '“It’s a full moon tonight. That’s when all the weirdos are out.”',
+    '“I am the pumpkin king.”',
+    '“It’s showtime”',
+    '“Hi I’m Chucky, wanna play?”',
+    '“No, please don’t kill me, Mr. Ghostface, I wanna be in the sequel.”',
+    '“What an excellent day for an exorcism.”',
+    '“Be afraid… Be very afraid.”',
+    '“Last night you were unhinged. You were like some desperate, howling demon. You frightened me. Do it again.”',
+    '“We’ve got to find Jack! There’s only 365 days left until next Halloween.”',
+    '“Isn´t the view beautiful? It takes my breath away. Well, it would if I had any.”',
+    '“I see dead people”',
+  ],
+  christmas: [
+    '“You have such a pretty face. You should be on a Christmas card.”',
+    '“The best way to spread Christmas cheer is singing loud for all to hear.”',
+    '“I am a cotton-headed ninny muggins!”',
+    '“Did I burn down the joint? I don’t think so. I was making ornaments out of fishhooks.”',
+    '“Mom, does Santa Claus have to go through customs?”',
+    '“Keep the change, ya filthy animal.”',
+    '“You’re what the French call les incompétents.”',
+    '“I wouldn’t let you sleep in my room if you were growing on my ass!”',
+    '“Son of a nutcracker!”',
+    '“He’s an angry elf.”',
+    '“SANTA! Oh my God! Santa, here?! I know him! I know him!”',
+    '“Holiday who-be what-ee?”',
+    '“Am I just eating because I’m bored?”',
+  ],
+};
+
 const omegaURL = process.env.OMEGA_URL;
 const apiURL = process.env.API_URL;
 const token = process.env.X_MASTER_KEY;
@@ -16,7 +59,7 @@ const chooChooURL = process.env.CHOO_CHOO_URL;
 const deployHookUrl = process.env.DEPLOY_HOOK_URL;
 const delpoyChannelId = process.env.DEPLOY_CHANNEL_ID;
 
-var axiosHeaders = {
+const axiosHeaders = {
   headers: {
     'Content-Type': 'application/json',
     'X-Master-Key': token,
@@ -72,6 +115,19 @@ app.message(async ({ message, say }) => {
     const ovStatus = await getOvStatus();
 
     ovStatus ? await say('OV!') : await say(':disagreeing_astrid:');
+    if (events.halloween) {
+      await say(
+        `${
+          quotes.halloween[Math.floor(Math.random() * quotes.halloween.length)]
+        } 🎃👻`
+      );
+    } else if (events.christmas) {
+      await say(
+        `${
+          quotes.christmas[Math.floor(Math.random() * quotes.christmas.length)]
+        } 🎄🎅`
+      );
+    }
 
     await addVisit();
   }
@@ -82,6 +138,19 @@ app.message(async ({ message, say }) => {
     const visits = await getVisits();
 
     await say(`OV-COUNTER: ${visits}`);
+    if (events.halloween) {
+      await say(
+        `${
+          quotes.halloween[Math.floor(Math.random() * quotes.halloween.length)]
+        } 🎃👻`
+      );
+    } else if (events.christmas) {
+      await say(
+        `${
+          quotes.christmas[Math.floor(Math.random() * quotes.christmas.length)]
+        } 🎄🎅`
+      );
+    }
   }
 });
 
@@ -107,6 +176,19 @@ app.command('/start-train', async ({ ack, say }) => {
   await ack();
 
   await say('<!channel>, OV-toget has started! :ov: :steam_locomotive:');
+  if (events.halloween) {
+    await say(
+      `${
+        quotes.halloween[Math.floor(Math.random() * quotes.halloween.length)]
+      } 🎃👻`
+    );
+  } else if (events.christmas) {
+    await say(
+      `${
+        quotes.christmas[Math.floor(Math.random() * quotes.christmas.length)]
+      } 🎄🎅`
+    );
+  }
 
   setTimeout(
     async () =>
