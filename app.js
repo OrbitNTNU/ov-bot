@@ -138,19 +138,6 @@ app.message(async ({ message, say }) => {
     const visits = await getVisits();
 
     await say(`OV-COUNTER: ${visits}`);
-    if (events.halloween) {
-      await say(
-        `${
-          quotes.halloween[Math.floor(Math.random() * quotes.halloween.length)]
-        } 🎃👻`
-      );
-    } else if (events.christmas) {
-      await say(
-        `${
-          quotes.christmas[Math.floor(Math.random() * quotes.christmas.length)]
-        } 🎄🎅`
-      );
-    }
   }
 });
 
@@ -176,19 +163,6 @@ app.command('/start-train', async ({ ack, say }) => {
   await ack();
 
   await say('<!channel>, OV-toget has started! :ov: :steam_locomotive:');
-  if (events.halloween) {
-    await say(
-      `${
-        quotes.halloween[Math.floor(Math.random() * quotes.halloween.length)]
-      } 🎃👻`
-    );
-  } else if (events.christmas) {
-    await say(
-      `${
-        quotes.christmas[Math.floor(Math.random() * quotes.christmas.length)]
-      } 🎄🎅`
-    );
-  }
 
   setTimeout(
     async () =>
