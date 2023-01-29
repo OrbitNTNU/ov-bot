@@ -1,6 +1,7 @@
 const { App } = require('@slack/bolt');
 const axios = require('axios');
 require('dotenv').config();
+const fs = require('fs/promises');
 
 const app = new App({
   signingSecret: process.env.SLACK_SIGNING_SECRET,
@@ -67,17 +68,14 @@ const axiosHeaders = {
 };
 
 const addVisit = async () => {
-  const currentVisits = await getVisits();
-
-  await axios
-    .put(
-      apiURL,
-      {
-        counter: currentVisits + 1,
-      },
-      { axiosHeaders }
-    )
-    .catch((error) => console.log(error));
+  await getVisits()
+    .then((visits) => {
+      const newVisits = JSON.stringify({ counter: visits + 1 });
+      fs.writeFile('./data.json', newVisits);
+    })
+    .catch((error) => {
+      console.log(error);
+    });
 };
 
 const getOvStatus = async () => {
@@ -100,12 +98,14 @@ const getOvStatus = async () => {
 const getVisits = async () => {
   let visits = 0;
 
-  await axios
-    .get(apiURL + '/latest')
+  await fs
+    .readFile('./data.json', 'utf-8')
     .then((response) => {
-      visits = response.data.record.counter;
+      visits = JSON.parse(response).counter;
     })
-    .catch((error) => console.log(error));
+    .catch((error) => {
+      console.log(error);
+    });
 
   return visits;
 };
