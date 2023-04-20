@@ -54,7 +54,6 @@ const quotes = {
 };
 
 const omegaURL = process.env.OMEGA_URL;
-const apiURL = process.env.API_URL;
 const token = process.env.X_MASTER_KEY;
 const chooChooURL = process.env.CHOO_CHOO_URL;
 const deployHookUrl = process.env.DEPLOY_HOOK_URL;
@@ -142,8 +141,7 @@ app.message(async ({ message, say }) => {
 
 app.message(async ({ message, say }) => {
   if (message.text === 'OV#') {
-    const visits = await getVisits();
-
+    const visits = await getVisits().catch((error) => console.log(error));
     await say(`OV-COUNTER: ${visits}`);
   }
 });
@@ -171,13 +169,7 @@ app.command('/start-train', async ({ ack, say }) => {
 
   await say('<!channel>, OV-toget has started! :ov: :steam_locomotive:');
 
-  setTimeout(
-    async () =>
-      axios.get(chooChooURL).catch((error) => {
-        console.log(error);
-      }),
-    180000
-  );
+  setTimeout(async () => axios.get(chooChooURL), 180000);
 });
 
 app.command('/deploy-website', async ({ ack, say, command }) => {
