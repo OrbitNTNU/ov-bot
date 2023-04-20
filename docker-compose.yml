@@ -1,0 +1,15 @@
+version: '1'
+services:
+  ov-bot:
+    build: .
+    ports:
+      - "3000:3000"
+    environment:
+      APP_TOKEN: $APP_TOKEN
+      CHOO_CHOO_URL: $CHOO_CHOO_URL
+      DEPLOY_CHANNEL_ID: $DEPLOY_CHANNEL_ID
+      DEPLOY_HOOK_URL: $DEPLOY_HOOK_URL
+      OMEGA_URL: $OMEGA_URL
+      SLACK_BOT_TOKEN: $SLACK_BOT_TOKEN
+      SLACK_SIGNING_SECRET: $SLACK_SIGNING_SECRET
+      X_MASTER_KEY: $X_MASTER_KEY
