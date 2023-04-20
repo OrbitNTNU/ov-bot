@@ -71,7 +71,11 @@ const addVisit = async () => {
   await getVisits()
     .then((visits) => {
       const newVisits = JSON.stringify({ counter: visits + 1 });
-      fs.writeFile('./data.json', newVisits);
+      fs.writeFile('./data.json', newVisits, { flag: 'w' }, (err) => {
+        if (err) {
+          console.log(err);
+        }
+      });
     })
     .catch((error) => {
       console.log(error);
@@ -98,14 +102,17 @@ const getOvStatus = async () => {
 const getVisits = async () => {
   let visits = 0;
 
-  await fs
-    .readFile('./data.json', 'utf-8')
-    .then((response) => {
-      visits = JSON.parse(response).counter;
-    })
-    .catch((error) => {
-      console.log(error);
-    });
+  try {
+    const data = await fs.readFile('./data.json', 'utf-8');
+    visits = JSON.parse(data).counter;
+  } catch (err) {
+    if (err.code === 'ENOENT') {
+      // File not found error, create a new file
+      await fs.writeFile('./data.json', JSON.stringify({ counter: 0 }));
+    } else {
+      console.log(err);
+    }
+  }
 
   return visits;
 };
